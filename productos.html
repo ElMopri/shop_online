@@ -6,35 +6,41 @@
     <title>Productos - Shop Online</title>
     <link rel="stylesheet" href="./css/productos.css">
 </head>
-<body>
+<body class="products-page">
     <header>
-        <h1>Shop Online</h1>
+        <div class="logo">
+            <h1>Shop Online</h1>
+        </div>
+        <div class="user-info">
+            <p>Bienvenido: <strong>Jhon Doe</strong></p>
+        </div>
         <nav>
             <div id="cart-container">
                 <button id="cart-btn">Carrito</button>
                 <span id="cart-count">0</span>
             </div>
             <button id="logout-btn">Salir</button>
-        </nav>        
+        </nav>
+    </header>
+
+    <main>
         <div class="search-bar">
-            <label for="search">Filtro de búsqueda:</label>
-            <input type="text" id="search" placeholder="Buscar productos...">
+            <input type="text" id="search-input" placeholder="Filtro de búsqueda...">
             <button id="search-btn">Buscar</button>
         </div>
-    </header>
-    
-    <main>
+
+        <h2>Productos</h2>
+
         <div class="categories">
-            <button class="category-btn" data-category="all">Productos</button>
             <button class="category-btn" data-category="electronics">Electronics</button>
             <button class="category-btn" data-category="jewelery">Jewelery</button>
             <button class="category-btn" data-category="men's clothing">Men's clothing</button>
             <button class="category-btn" data-category="women's clothing">Women's clothing</button>
         </div>
 
-        <section id="products-container">
+        <div id="products-container">
             <!-- Los productos se cargarán aquí -->
-        </section>
+        </div>
     </main>
 
     <script src="./js/productos.js"></script>

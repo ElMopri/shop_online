@@ -49,7 +49,7 @@ function addToCart(productId) {
         .then(product => {
             cart.push(product);
             updateCartCount();
-            alert(`${product.title} ha sido añadido al carrito.`);
+            // Ya no mostramos la alerta
         });
 }
 
@@ -80,10 +80,15 @@ document.getElementById('search-btn').addEventListener('click', function () {
         });
 });
 
+// Redirigir a carrito
+document.getElementById('cart-btn').addEventListener('click', function () {
+    window.location.href = './carrito.html';
+});
+
 // Cargar productos al inicio
 fetchProducts();
 
 // Botón de salida
 document.getElementById('logout-btn').addEventListener('click', function () {
-    window.location.href = 'index.html';
+    window.location.href = './index.html';
 });
