@@ -11,6 +11,9 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
 
     // Verificar si coinciden con los valores fijos
     if (username === fixedUsername && password === fixedPassword) {
+        // Guardar el nombre del usuario en localStorage
+        localStorage.setItem('username', username);
+
         // Redirigir a productos.html si el inicio de sesión es exitoso
         window.location.href = './productos.html';
     } else {

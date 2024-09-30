@@ -1,32 +1,52 @@
-// Simulación de pedidos del usuario
-const orders = [
-    { id: 12, date: '24/06/2022' },
-    { id: 1, date: '21/06/2022' },
-    { id: 3, date: '21/06/2022' }
-];
+// Simulamos el carrito como un array global (puedes usar localStorage para persistencia)
+let cart = [];
 
-// Cargar los pedidos en la tabla
-function loadOrders() {
-    const ordersList = document.getElementById('orders-list');
-    ordersList.innerHTML = ''; // Limpiar contenido previo
-
-    orders.forEach(order => {
-        const row = document.createElement('tr');
-
-        row.innerHTML = `
-            <td>${order.id}</td>
-            <td>${order.date}</td>
-            <td><a href="./informacion.html?id=${order.id}" class="ver-link">ver</a></td>
-        `;
-
-        ordersList.appendChild(row);
-    });
+// Obtener el nombre del usuario
+function getUsername() {
+    return localStorage.getItem('username') || 'Usuario';
 }
 
-// Cargar los pedidos al cargar la página
-document.addEventListener('DOMContentLoaded', loadOrders);
+// Mostrar el nombre de usuario en la página
+function displayUsername() {
+    const username = getUsername();
+    document.getElementById('username').textContent = username;
+}
 
-// Redirigir a la página de inicio de sesión al salir
+// Mostrar los productos en el carrito
+function displayCartItems() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    cartItemsContainer.innerHTML = ''; // Limpiar productos anteriores
+
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<tr><td colspan="3">No hay productos en el carrito.</td></tr>';
+    } else {
+        cart.forEach((item, index) => {
+            const itemRow = document.createElement('tr');
+            itemRow.innerHTML = `
+                <td>${item.title}</td>
+                <td>$${item.price.toFixed(2)}</td>
+                <td><button class="view-btn" data-id="${index}">ver</button></td>
+            `;
+            cartItemsContainer.appendChild(itemRow);
+        });
+    }
+}
+
+// Evento para redireccionar a informacion.html
+document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('view-btn')) {
+        const productIndex = event.target.dataset.id;
+        // Redirigir a informacion.html con el ID del producto
+        window.location.href = `./informacion.html?id=${productIndex}`;
+    }
+});
+
+// Inicializar la página de carrito
+displayUsername();
+displayCartItems();
+
 document.getElementById('logout-btn').addEventListener('click', function () {
+    // Borrar el nombre de usuario al salir
+    localStorage.removeItem('username');
     window.location.href = './index.html';
 });

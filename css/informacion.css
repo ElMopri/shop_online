@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+header {
+    background-color: #007bff; /* Color azul */
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+h1, h2 {
+    margin: 0;
+}
+
+#cart-btn, #logout-btn, #update-cart-btn {
+    background-color: white;
+    color: #007bff;
+    border: 2px solid #007bff;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px; /* Margen entre botones */
+}
+
+#cart-btn:hover, #logout-btn:hover, #update-cart-btn:hover {
+    background-color: #007bff; /* Color de fondo azul en hover */
+    color: white; /* Texto blanco en hover */
+}
+
+main {
+    padding: 20px;
+}
+
+#order-details {
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
