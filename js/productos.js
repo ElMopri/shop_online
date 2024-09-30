@@ -1,10 +1,14 @@
 const API_URL = 'https://fakestoreapi.com/products';
 let cart = [];
 
-// Función para obtener productos
-async function fetchProducts() {
+// Función para obtener productos por categoría
+async function fetchProducts(category = "all") {
     try {
-        const response = await fetch(API_URL);
+        let url = API_URL;
+        if (category !== "all") {
+            url += `/category/${category}`;
+        }
+        const response = await fetch(url);
         if (!response.ok) throw new Error('Error en la carga de productos.');
         const products = await response.json();
         displayProducts(products);
@@ -66,12 +70,12 @@ function addToCart(productId) {
         });
 }
 
-
-
 // Función para actualizar el contador del carrito
 function updateCartCount() {
     const cartCount = document.getElementById('cart-count');
-    cartCount.textContent = cart.length;
+    const carts = JSON.parse(localStorage.getItem('carts')) || [];
+    const currentCart = carts.find(c => c.id === cartId);
+    cartCount.textContent = currentCart ? currentCart.products.length : 0;
 }
 
 // Evento para el botón de carrito
@@ -82,6 +86,14 @@ document.getElementById('cart-btn').addEventListener('click', function () {
 // Evento para el botón de salir
 document.getElementById('logout-btn').addEventListener('click', function () {
     window.location.href = './index.html';
+});
+
+// Eventos para el filtro de categorías
+document.querySelectorAll('.category-btn').forEach(button => {
+    button.addEventListener('click', function () {
+        const category = this.dataset.category;
+        fetchProducts(category); // Llamar a fetchProducts con la categoría seleccionada
+    });
 });
 
 // Cargar productos al inicio
