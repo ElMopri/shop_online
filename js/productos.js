@@ -96,5 +96,13 @@ document.querySelectorAll('.category-btn').forEach(button => {
     });
 });
 
+// Función para mostrar el nombre del usuario
+function displayUsername() {
+    const username = localStorage.getItem('username');
+    if (username) {
+        document.getElementById('username').textContent = username;
+    }
+}
+
 // Cargar productos al inicio
 fetchProducts();
