@@ -1,52 +1,47 @@
-// Simulamos el carrito como un array global (puedes usar localStorage para persistencia)
-let cart = [];
+let carts = JSON.parse(localStorage.getItem('carts')) || [];
 
-// Obtener el nombre del usuario
-function getUsername() {
-    return localStorage.getItem('username') || 'Usuario';
+// Asegúrate de que al menos un carrito esté presente
+if (carts.length === 0) {
+    carts.push({ id: 1, products: [] }); // Crear un carrito por defecto
+    localStorage.setItem('carts', JSON.stringify(carts));
 }
 
-// Mostrar el nombre de usuario en la página
-function displayUsername() {
-    const username = getUsername();
-    document.getElementById('username').textContent = username;
-}
+// Función para mostrar carritos
+function displayCarts() {
+    const cartBody = document.getElementById('cart-body');
+    cartBody.innerHTML = ''; // Limpiar contenido anterior
 
-// Mostrar los productos en el carrito
-function displayCartItems() {
-    const cartItemsContainer = document.getElementById('cart-items');
-    cartItemsContainer.innerHTML = ''; // Limpiar productos anteriores
+    carts.forEach(cart => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${cart.id}</td>
+            <td>${cart.products.length}</td>
+            <td>
+                <button class="view-btn" data-id="${cart.id}">Ver</button>
+            </td>
+        `;
+        cartBody.appendChild(row);
+    });
 
-    if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<tr><td colspan="3">No hay productos en el carrito.</td></tr>';
-    } else {
-        cart.forEach((item, index) => {
-            const itemRow = document.createElement('tr');
-            itemRow.innerHTML = `
-                <td>${item.title}</td>
-                <td>$${item.price.toFixed(2)}</td>
-                <td><button class="view-btn" data-id="${index}">ver</button></td>
-            `;
-            cartItemsContainer.appendChild(itemRow);
+    // Agregar eventos a los botones de ver
+    document.querySelectorAll('.view-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const cartId = this.dataset.id;
+            window.location.href = `./informacion.html?cartId=${cartId}`;
         });
-    }
+    });
 }
 
-// Evento para redireccionar a informacion.html
-document.addEventListener('click', function (event) {
-    if (event.target.classList.contains('view-btn')) {
-        const productIndex = event.target.dataset.id;
-        // Redirigir a informacion.html con el ID del producto
-        window.location.href = `./informacion.html?id=${productIndex}`;
-    }
+// Evento para el botón de volver a productos
+document.getElementById('products-btn').addEventListener('click', function () {
+    window.location.href = './productos.html';
 });
 
-// Inicializar la página de carrito
-displayUsername();
-displayCartItems();
-
+// Evento para el botón de salir
 document.getElementById('logout-btn').addEventListener('click', function () {
-    // Borrar el nombre de usuario al salir
-    localStorage.removeItem('username');
     window.location.href = './index.html';
 });
+
+// Mostrar carritos al cargar la página
+displayCarts();
+

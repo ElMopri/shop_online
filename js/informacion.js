@@ -1,41 +1,32 @@
-const welcomeMessage = document.getElementById('welcome-message');
+// Obtener el ID del carrito de la URL
+const urlParams = new URLSearchParams(window.location.search);
+const cartId = parseInt(urlParams.get('cartId'));
 
-// Obtener el nombre de usuario de localStorage (suponiendo que lo guardaste al iniciar sesión)
-const userName = localStorage.getItem('username') || 'Invitado'; // Nombre por defecto si no hay usuario
+let carts = JSON.parse(localStorage.getItem('carts')) || [];
+const cart = carts.find(c => c.id === cartId); // Buscar el carrito correspondiente
 
-welcomeMessage.textContent = `Bienvenido: ${userName}`; // Mostrar el nombre del usuario
+function displayCartInfo() {
+    const cartInfo = document.getElementById('cart-info');
 
-// Obtener los datos del pedido seleccionado
-function getOrderDetails() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id'); // Obtener el ID del producto
-
-    // Obtener el producto basado en el índice del carrito
-    const product = cart[productId]; // Suponiendo que el carrito se está usando como array
-
-    displayOrderDetails(product);
-}
-
-// Mostrar detalles del producto en el HTML
-function displayOrderDetails(product) {
-    const orderDetailsContainer = document.getElementById('order-details');
-    orderDetailsContainer.innerHTML = ''; // Limpiar detalles anteriores
-
-    if (product) {
-        const itemDiv = document.createElement('div');
-        itemDiv.innerHTML = `<p>${product.title} - $${product.price.toFixed(2)}</p>`;
-        orderDetailsContainer.appendChild(itemDiv);
-    } else {
-        orderDetailsContainer.innerHTML = '<p>Producto no encontrado.</p>';
+    if (!cart || cart.products.length === 0) {
+        cartInfo.innerHTML = '<p>El carrito está vacío.</p>';
+        return;
     }
+
+    cart.products.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.innerHTML = `
+            <h3>${product.title}</h3>
+            <p>Precio: $${product.price.toFixed(2)}</p>
+        `;
+        cartInfo.appendChild(productDiv);
+    });
 }
 
-// Cargar detalles del pedido y nombre de usuario al inicio
-displayUsername();
-getOrderDetails();
-
-document.getElementById('logout-btn').addEventListener('click', function () {
-    // Borrar el nombre de usuario al salir
-    localStorage.removeItem('username');
-    window.location.href = './index.html';
+// Evento para el botón de volver al carrito
+document.getElementById('back-btn').addEventListener('click', function () {
+    window.location.href = './carrito.html';
 });
+
+// Mostrar información del carrito al cargar la página
+displayCartInfo();

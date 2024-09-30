@@ -3,44 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos - Shop Online</title>
     <link rel="stylesheet" href="./css/productos.css">
+    <title>Productos</title>
 </head>
-<body class="products-page">
+<body>
     <header>
-        <div class="logo">
-            <h1>Shop Online</h1>
-        </div>
-        <div class="user-info">
-            <p>Bienvenido: <strong id="user-name">Usuario</strong></p> <!-- Aquí aparecerá el nombre -->
-        </div>
-        <nav>
-            <div id="cart-container">
-                <button id="cart-btn">Carrito</button>
-                <span id="cart-count">0</span>
-            </div>
-            <button id="logout-btn">Salir</button>
-        </nav>
+        <h1>Shop Online</h1>
+        <p id="welcome-message">Bienvenido: Jhon Doe</p>
+        <button id="cart-btn">Carrito</button>
+        <button id="logout-btn">Salir</button>
     </header>
-
-    <main>
-        <div class="search-bar">
-            <input type="text" id="search" placeholder="Filtro de búsqueda...">
-            <button id="search-btn">Buscar</button>
-        </div>
-
-        <div class="categories">
-            <button class="category-btn" data-category="electronics">Electronics</button>
-            <button class="category-btn" data-category="jewelery">Jewelery</button>
-            <button class="category-btn" data-category="men's clothing">Men's clothing</button>
-            <button class="category-btn" data-category="women's clothing">Women's clothing</button>
-        </div>
-
-        <div id="products-container">
-            <!-- Los productos se cargarán aquí -->
-        </div>
-    </main>
+    
+    <input type="text" id="search" placeholder="Buscar productos">
+    <button id="search-btn">Buscar</button>
+    
+    <div id="products-container"></div>
 
     <script src="./js/productos.js"></script>
 </body>
 </html>
+

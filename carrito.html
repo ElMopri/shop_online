@@ -3,31 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito - Shop Online</title>
     <link rel="stylesheet" href="./css/carrito.css">
+    <title>Carrito</title>
 </head>
 <body>
     <header>
-        <h1>Carrito de Compras</h1>
-        <h2 id="welcome-message"></h2> <!-- Mensaje de bienvenida -->
-        <button id="back-btn">Volver a Productos</button>
+        <h1>Carritos de Compras</h1>
+        <button id="products-btn">Volver a Productos</button>
+        <button id="logout-btn">Salir</button>
     </header>
     
-    <main>
-        <table id="cart-table">
-            <thead>
-                <tr>
-                    <th>Número</th>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="cart-items">
-                <!-- Aquí se mostrarán los productos del carrito -->
-            </tbody>
-        </table>
-    </main>
+    <table id="cart-table">
+        <thead>
+            <tr>
+                <th>ID del Carrito</th>
+                <th>Cantidad de Productos</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="cart-body">
+            <!-- Aquí se llenarán los carritos del usuario -->
+        </tbody>
+    </table>
 
     <script src="./js/carrito.js"></script>
 </body>
