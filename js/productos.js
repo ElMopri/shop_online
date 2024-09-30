@@ -1,36 +1,40 @@
 const API_URL = 'https://fakestoreapi.com/products';
+
+// Almacenar productos en el carrito
 let cart = [];
 
 // Función para obtener productos
-async function fetchProducts() {
-    try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error('Error en la carga de productos.');
-        const products = await response.json();
-        displayProducts(products);
-    } catch (error) {
-        console.error("Error:", error);
-        alert("No se pudieron cargar los productos.");
+async function fetchProducts(category = "all") {
+    let url = API_URL;
+    if (category !== "all") {
+        url += `/category/${category}`;
     }
+
+    const response = await fetch(url);
+    const products = await response.json();
+    displayProducts(products);
 }
 
-// Función para mostrar productos
+// Función para mostrar productos en el contenedor
 function displayProducts(products) {
     const productsContainer = document.getElementById('products-container');
-    productsContainer.innerHTML = '';
+    productsContainer.innerHTML = ''; // Limpiar productos anteriores
 
     products.forEach(product => {
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
+
         productCard.innerHTML = `
             <img src="${product.image}" alt="${product.title}">
             <h3>${product.title}</h3>
             <p>$ ${product.price.toFixed(2)}</p>
             <button class="add-btn" data-id="${product.id}">Add</button>
         `;
+
         productsContainer.appendChild(productCard);
     });
 
+    // Agregar eventos a los botones "Add"
     document.querySelectorAll('.add-btn').forEach(button => {
         button.addEventListener('click', function () {
             addToCart(this.dataset.id);
@@ -38,35 +42,15 @@ function displayProducts(products) {
     });
 }
 
-// Almacenar productos en el carrito
-let cartId = 1; // Suponemos que hay un carrito por defecto con ID 1
-
 // Función para agregar productos al carrito
 function addToCart(productId) {
     fetch(`${API_URL}/${productId}`)
         .then(response => response.json())
         .then(product => {
-            // Cargar carritos existentes
-            let carts = JSON.parse(localStorage.getItem('carts')) || [];
-            // Buscar el carrito por ID
-            let cart = carts.find(c => c.id === cartId);
-
-            if (!cart) {
-                // Si no existe, crear uno nuevo
-                cart = { id: cartId, products: [] };
-                carts.push(cart);
-            }
-
-            // Agregar el producto al carrito
-            cart.products.push(product);
-            localStorage.setItem('carts', JSON.stringify(carts)); // Guardar cambios en Local Storage
-
+            cart.push(product);
             updateCartCount();
-            alert(`${product.title} ha sido añadido al carrito.`);
         });
 }
-
-
 
 // Función para actualizar el contador del carrito
 function updateCartCount() {
@@ -74,18 +58,34 @@ function updateCartCount() {
     cartCount.textContent = cart.length;
 }
 
-// Evento para el botón de carrito
-document.getElementById('cart-btn').addEventListener('click', function () {
-    window.location.href = './carrito.html';
+// Filtrar productos por categoría
+document.querySelectorAll('.category-btn').forEach(button => {
+    button.addEventListener('click', function () {
+        const category = this.dataset.category;
+        fetchProducts(category);
+    });
 });
 
-// Evento para el botón de salir
-document.getElementById('logout-btn').addEventListener('click', function () {
-    window.location.href = './index.html';
+// Búsqueda de productos
+document.getElementById('search-btn').addEventListener('click', function () {
+    const searchQuery = document.getElementById('search').value.toLowerCase();
+    fetch(API_URL)
+        .then(response => response.json())
+        .then(products => {
+            const filteredProducts = products.filter(product =>
+                product.title.toLowerCase().includes(searchQuery)
+            );
+            displayProducts(filteredProducts);
+        });
 });
 
 // Cargar productos al inicio
 fetchProducts();
 
+// Botón de salida
+document.getElementById('logout-btn').addEventListener('click', function () {
+    window.location.href = './index.html';
+});
 
-
+// Cargar productos por categoría al cargar la página
+fetchProducts();

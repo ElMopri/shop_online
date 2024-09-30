@@ -12,8 +12,22 @@
         <button id="back-btn">Volver a Carrito</button>
     </header>
     
-    <div id="cart-info">
-        <!-- Aquí se mostrarán los productos del carrito -->
+    <table id="cart-table">
+        <thead>
+            <tr>
+                <th>Nombre del Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody id="cart-info">
+            <!-- Aquí se mostrarán los productos del carrito -->
+        </tbody>
+    </table>
+
+    <div id="total-container">
+        <h3>Total a Pagar: $<span id="total-amount">0.00</span></h3>
     </div>
 
     <script src="./js/informacion.js"></script>
