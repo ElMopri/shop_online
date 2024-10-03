@@ -5,14 +5,17 @@ document.addEventListener('DOMContentLoaded', initPage);
 function initPage() {
     const path = window.location.pathname;
 
+    // Ajuste para evitar problemas con la URL base de GitHub Pages
+    const pageName = path.substring(path.lastIndexOf('/') + 1);
+
     // Inicializar según la página
-    if (path.endsWith('index.html')) {
+    if (pageName === 'index.html' || pageName === '') {
         initLogin();
-    } else if (path.endsWith('productos.html')) {
+    } else if (pageName === 'productos.html') {
         initProductos();
-    } else if (path.endsWith('carrito.html')) {
+    } else if (pageName === 'carrito.html') {
         initCarrito();
-    } else if (path.endsWith('informacion.html')) {
+    } else if (pageName === 'informacion.html') {
         initInformacion();
     }
 }
