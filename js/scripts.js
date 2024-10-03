@@ -3,7 +3,7 @@ function initPage() {
     const path = window.location.pathname;
 
     // Inicializar según la página
-    if (path.includes('index.html')) {
+    if (path.includes('index.html') || path.includes('')) {
         initLogin();
     } else if (path.includes('productos.html')) {
         initProductos();
@@ -11,7 +11,7 @@ function initPage() {
         initCarrito();
     } else if (path.includes('informacion.html')) {
         initInformacion();
-    }   
+    }
 }
 
 // Ejecutar la inicialización cuando el DOM esté listo
@@ -20,10 +20,10 @@ document.addEventListener('DOMContentLoaded', initPage);
 // Función para manejar el login en index.html
 function initLogin() {
     const loginForm = document.getElementById('loginForm');
-    
+
     // Verificar si el formulario existe en la página
     if (loginForm) {
-        loginForm.addEventListener('submit', function(event) {
+        loginForm.addEventListener('submit', function (event) {
             event.preventDefault(); // Evita el comportamiento predeterminado del formulario
 
             const fixedUsername = 'mor_2314';
@@ -61,13 +61,13 @@ function initProductos() {
 
     // Verificar si los botones existen en la página
     if (carritoBtn) {
-        carritoBtn.addEventListener('click', function() {
+        carritoBtn.addEventListener('click', function () {
             window.location.href = './carrito.html'; // Redirigir a carrito.html
         });
     }
 
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', function() {
+        logoutBtn.addEventListener('click', function () {
             window.location.href = './index.html'; // Redirigir a index.html
         });
     }
@@ -208,17 +208,17 @@ function initCarrito() {
 
     // Verificar si los botones existen en la página
     if (productosBtn) {
-        productosBtn.addEventListener('click', function() {
+        productosBtn.addEventListener('click', function () {
             window.location.href = './productos.html'; // Redirigir a carrito.html
         });
     }
 
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', function() {
+        logoutBtn.addEventListener('click', function () {
             window.location.href = './index.html'; // Redirigir a index.html
         });
     }
-    
+
     // Obtener la información del usuario 1
     fetch('https://fakestoreapi.com/users/1')
         .then(response => response.json())
@@ -227,7 +227,7 @@ function initCarrito() {
             userNameElement.textContent = `${firstname} ${lastname}`;
         })
         .catch(error => console.error('Error al cargar la información del usuario:', error));
-    
+
     // Obtener los carritos del usuario 1
     fetch('https://fakestoreapi.com/carts/user/1')
         .then(response => response.json())
@@ -264,17 +264,17 @@ function initInformacion() {
 
     // Verificar si los botones existen en la página
     if (carritoBtn) {
-        carritoBtn.addEventListener('click', function() {
+        carritoBtn.addEventListener('click', function () {
             window.location.href = './carrito.html';
         });
     }
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', function() {
+        logoutBtn.addEventListener('click', function () {
             window.location.href = './index.html';
         });
     }
     if (productosBtn) {
-        productosBtn.addEventListener('click', function() {
+        productosBtn.addEventListener('click', function () {
             window.location.href = './productos.html';
         });
     }
