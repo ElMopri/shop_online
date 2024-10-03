@@ -3,33 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/informacion.css">
-    <title>Información del Carrito</title>
+    <title>Información del Pedido</title>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
-<body>
-    <header>
-        <h1>Información del Carrito</h1>
-        <button id="back-btn">Volver a Carrito</button>
+<body class="informacion-body">
+
+    <header class="informacion-header">
+        <div class="informacion-header-left">
+            <h1 class="informacion-title">Shop Online</h1>
+            <p class="informacion-subtitle">Anytime, Anywhere</p>
+        </div>
+        <div class="informacion-header-center">
+            <h1 class="informacion-bienvenida">Bienvenido: <span class="user-name"></span></h1>
+        </div>
+        <div class="informacion-header-right">
+            <button class="carrito-btn">Carrito</button>
+            <button class="logout-btn">Salir</button>
+        </div>
     </header>
-    
-    <table id="cart-table">
-        <thead>
-            <tr>
-                <th>Nombre del Producto</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody id="cart-info">
-            <!-- Aquí se mostrarán los productos del carrito -->
-        </tbody>
-    </table>
 
-    <div id="total-container">
-        <h3>Total a Pagar: $<span id="total-amount">0.00</span></h3>
-    </div>
+    <section class="informacion-section">
+        <h3 class="informacion-title-detalles">Información del Pedido</h3>
+        <div class="informacion-detalle">
+            <label>Fecha: <input type="text" id="fecha" readonly></label>
+            <label>Pedido número: <input type="text" id="pedido-numero" readonly></label>
+            <label>Cliente: <input type="text" id="cliente" readonly></label>
+        </div>
 
-    <script src="./js/informacion.js"></script>
+        <h3 class="informacion-table-title">Relación de Productos</h3>
+        <table class="informacion-table">
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th>Cantidad</th>
+                    <th>Valor</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody id="informacion-table-body">
+                <!-- Productos del carrito serán añadidos aquí -->
+            </tbody>
+        </table>
+
+        <div class="total-container">
+            <label class="total-lbl">Total: $<span id="total"></span></label>
+        </div>
+
+        <div class="botones-container">
+            <button class="boton-actualizar">Actualizar</button>
+            <button class="boton-confirmar">Confirmar</button>
+            <button class="productos-btn">Seguir comprando</button>
+        </div>
+    </section>
+
+    <script src="./js/scripts.js"></script>
 </body>
 </html>

@@ -9,7 +9,9 @@ function initPage() {
         initProductos();
     } else if (path.includes('carrito.html')) {
         initCarrito();
-    }
+    } else if (path.includes('informacion.html')) {
+        initInformacion();
+    }   
 }
 
 // Ejecutar la inicialización cuando el DOM esté listo
@@ -241,4 +243,82 @@ function initCarrito() {
             });
         })
         .catch(error => console.error('Error al cargar los carritos:', error));
+}
+
+// Función para manejar la página de informacion
+function initInformacion() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const cartId = urlParams.get('cartId'); // Obtener cartId de la URL
+    const userNameElement = document.querySelector('.user-name');
+    const fechaInput = document.getElementById('fecha');
+    const pedidoNumeroInput = document.getElementById('pedido-numero');
+    const clienteInput = document.getElementById('cliente');
+    const informacionTableBody = document.getElementById('informacion-table-body');
+    const totalElement = document.getElementById('total');
+    const productosBtn = document.querySelector('.productos-btn');
+    const logoutBtn = document.querySelector('.logout-btn');
+    const carritoBtn = document.querySelector('.carrito-btn');
+
+    let total = 0;
+
+    // Verificar si los botones existen en la página
+    if (carritoBtn) {
+        carritoBtn.addEventListener('click', function() {
+            window.location.href = './carrito.html';
+        });
+    }
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            window.location.href = './index.html';
+        });
+    }
+    if (productosBtn) {
+        productosBtn.addEventListener('click', function() {
+            window.location.href = './productos.html';
+        });
+    }
+
+    // Obtener la información del carrito
+    fetch(`https://fakestoreapi.com/carts/${cartId}`)
+        .then(response => response.json())
+        .then(cart => {
+            // Mostrar fecha y número de pedido
+            fechaInput.value = new Date(cart.date).toLocaleDateString();
+            pedidoNumeroInput.value = cart.id;
+
+            // Obtener la información del usuario
+            fetch(`https://fakestoreapi.com/users/${cart.userId}`)
+                .then(response => response.json())
+                .then(user => {
+                    const { name: { firstname, lastname } } = user;
+                    clienteInput.value = `${firstname} ${lastname}`;
+
+                    userNameElement.textContent = `${firstname} ${lastname}`;
+                })
+                .catch(error => console.error('Error al cargar el usuario:', error));
+
+            // Obtener información de los productos del carrito
+            cart.products.forEach(product => {
+                fetch(`https://fakestoreapi.com/products/${product.productId}`)
+                    .then(response => response.json())
+                    .then(productData => {
+                        const subtotal = product.quantity * productData.price;
+                        total += subtotal;
+
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${productData.title}</td>
+                            <td>${product.quantity}</td>
+                            <td>$${productData.price.toFixed(2)}</td>
+                            <td>$${subtotal.toFixed(2)}</td>
+                        `;
+
+                        informacionTableBody.appendChild(row);
+                        totalElement.textContent = total.toFixed(2);
+                    })
+                    .catch(error => console.error('Error al cargar producto:', error));
+            });
+        })
+        .catch(error => console.error('Error al cargar el carrito:', error));
 }

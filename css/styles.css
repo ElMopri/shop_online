@@ -340,3 +340,108 @@
 .user-name{
     font-weight: 100;
 }
+
+.informacion-body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+}
+
+.informacion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+}
+
+.informacion-header-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.informacion-title {
+    font-size: 28px;
+    margin: 0;
+}
+
+.informacion-subtitle {
+    font-size: 14px;
+    color: #777;
+}
+
+.informacion-header-right {
+    display: flex;
+    align-items: center;
+}
+
+.informacion-title-detalles{
+    text-align: center;
+}
+
+.informacion-detalle {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.informacion-detalle label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.informacion-table-title{
+    text-align: center;
+}
+
+.informacion-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.informacion-table th, .informacion-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.informacion-table th {
+    background-color: gray;
+    border-bottom: 1px solid black;
+}
+
+.informacion-table td {
+    background-color: white;
+}
+
+.total-container {
+    text-align: right;
+    margin: 20px 20px 20px 0; /* Añadido un margen derecho de 20px */
+    padding-right: 20px; /* O puedes usar padding si prefieres */
+}
+
+.total-lbl{
+    font-weight: 900;
+}
+
+.botones-container {
+    text-align: right;
+    margin: 20px;
+}
+
+.boton-actualizar, .boton-confirmar, .productos-btn {
+    background-color: #4a56d4;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 20px;
+}
+
+.boton-actualizar:hover, .boton-confirmar:hover, .productos-btn:hover {
+    background-color: #3742ac;
+}
