@@ -6,13 +6,13 @@ function initPage() {
     const path = window.location.pathname;
 
     // Inicializar según la página
-    if (path.endsWith('index.html') || path === '/') {
+    if (path.endsWith('index.html')) {
         initLogin();
-    } else if (path.includes('productos.html')) {
+    } else if (path.endsWith('productos.html')) {
         initProductos();
-    } else if (path.includes('carrito.html')) {
+    } else if (path.endsWith('carrito.html')) {
         initCarrito();
-    } else if (path.includes('informacion.html')) {
+    } else if (path.endsWith('informacion.html')) {
         initInformacion();
     }
 }
