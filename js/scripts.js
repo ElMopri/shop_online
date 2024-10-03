@@ -2,11 +2,13 @@
 function initPage() {
     const path = window.location.pathname;
 
-    // Inicializar según el archivo de la página actual
+    // Inicializar según la página
     if (path.includes('index.html')) {
         initLogin();
     } else if (path.includes('productos.html')) {
         initProductos();
+    } else if (path.includes('carrito.html')) {
+        initCarrito();
     }
 }
 
@@ -195,3 +197,48 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+//Funcion para manejar la pagina de carrito
+function initCarrito() {
+    const carritoTableBody = document.querySelector('.carrito-table-body');
+    const userNameElement = document.querySelector('.user-name');
+    const productosBtn = document.querySelector('.productos-btn');
+    const logoutBtn = document.querySelector('.logout-btn');
+
+    // Verificar si los botones existen en la página
+    if (productosBtn) {
+        productosBtn.addEventListener('click', function() {
+            window.location.href = './productos.html'; // Redirigir a carrito.html
+        });
+    }
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            window.location.href = './index.html'; // Redirigir a index.html
+        });
+    }
+    
+    // Obtener la información del usuario 1
+    fetch('https://fakestoreapi.com/users/1')
+        .then(response => response.json())
+        .then(user => {
+            const { name: { firstname, lastname } } = user;
+            userNameElement.textContent = `${firstname} ${lastname}`;
+        })
+        .catch(error => console.error('Error al cargar la información del usuario:', error));
+    
+    // Obtener los carritos del usuario 1
+    fetch('https://fakestoreapi.com/carts/user/1')
+        .then(response => response.json())
+        .then(carts => {
+            carts.forEach(cart => {
+                const cartRow = document.createElement('tr');
+                cartRow.innerHTML = `
+                    <td>${cart.id}</td>
+                    <td>${new Date(cart.date).toLocaleDateString()}</td>
+                    <td><a class="ver-carrito-a" onclick="window.location.href='./informacion.html?cartId=${cart.id}'">Ver</a></td>
+                `;
+                carritoTableBody.appendChild(cartRow);
+            });
+        })
+        .catch(error => console.error('Error al cargar los carritos:', error));
+}

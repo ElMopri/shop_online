@@ -1,31 +1,42 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/carrito.css">
     <title>Carrito</title>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
-<body>
-    <header>
-        <h1>Carritos de Compras</h1>
-        <button id="products-btn">Volver a Productos</button>
-        <button id="logout-btn">Salir</button>
+<body class="carrito-body">
+<header class="carrito-header">
+        <div class="carrito-header-left">
+            <h1 class="carrito-title">Shop Online</h1>
+            <p class="carrito-subtitle">Anytime, Anywhere</p>
+        </div>
+        <div class="carrito-header-center">
+            <h1 class="carrito-bienvenida">Bienvenido: <span class="user-name"></span></h1>
+        </div>
+        <div class="carrito-header-right">
+            <button class="productos-btn">Productos</button>
+            <button class="logout-btn">Salir</button>
+        </div>
     </header>
     
-    <table id="cart-table">
-        <thead>
-            <tr>
-                <th>ID del Carrito</th>
-                <th>Cantidad de Productos</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="cart-body">
-            <!-- Aquí se llenarán los carritos del usuario -->
-        </tbody>
-    </table>
+    <section class="carrito-section">
+        <h2 class="carrito-section-title">Tus Carritos</h2>
+        <table class="carrito-table">
+            <thead>
+                <tr>
+                    <th>Numero</th>
+                    <th>Fecha de Solicitud</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="carrito-table-body">
+                <!-- Aquí se mostrarán los carritos -->
+            </tbody>
+        </table>
+    </section>
 
-    <script src="./js/carrito.js"></script>
+    <script src="./js/scripts.js"></script>
 </body>
 </html>

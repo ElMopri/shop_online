@@ -98,7 +98,7 @@
     align-items: center;
 }
 
-.carrito-btn, .logout-btn {
+.carrito-btn, .logout-btn, .productos-btn {
     background-color: #4a56d4;
     color: white;
     border: none;
@@ -109,7 +109,7 @@
     margin-left: 20px;
 }
 
-.carrito-btn:hover, .logout-btn:hover {
+.carrito-btn:hover, .logout-btn:hover, .productos-btn:hover {
     background-color: #3742ac;
 }
 
@@ -256,3 +256,87 @@
     align-items: flex-end;
 }
 
+/* Estilos para carrito.html */
+.carrito-body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+}
+
+.carrito-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+}
+
+.carrito-header-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.carrito-title {
+    font-size: 28px;
+    margin: 0;
+}
+
+.carrito-subtitle {
+    font-size: 14px;
+    color: #777;
+}
+
+.carrit-header-right {
+    display: flex;
+    align-items: center;
+}
+
+.carrito-bienvenida {
+    font-size: 24px;
+    margin: 0;
+}
+
+.carrito-section {
+    margin: 20px;
+}
+
+.carrito-section-title {
+    font-size: 22px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.carrito-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.carrito-table th, .carrito-table td {
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+.carrito-table th {
+    background-color: gray;
+    border-bottom: 1px solid black;
+}
+
+.carrito-table td {
+    background-color: white;
+}
+
+.ver-carrito-a {
+    text-decoration: underline;
+    color: black;
+}
+
+.ver-carrito-a:hover {
+    background-color: black;
+    color: white;
+}
+
+.user-name{
+    font-weight: 100;
+}
