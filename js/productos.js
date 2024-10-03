@@ -2,23 +2,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const productosContainer = document.querySelector('.productos-container');
     const categoriasContainer = document.querySelector('.categorias-container');
 
-    // Fetch para productos
-    fetch('https://fakestoreapi.com/products')
-        .then(res => res.json())
-        .then(products => {
-            products.forEach(product => {
-                const productCard = document.createElement('div');
-                productCard.classList.add('producto-card');
-                productCard.innerHTML = `
+// Fetch para productos
+fetch('https://fakestoreapi.com/products')
+    .then(res => res.json())
+    .then(products => {
+        products.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.classList.add('producto-card');
+            productCard.innerHTML = `
+                <div class="producto-img-container">
                     <img src="${product.image}" alt="${product.title}">
-                    <h3>${product.title}</h3>
-                    <p>${product.description}</p>
-                    <p class="producto-price">$${product.price}</p>
+                </div>
+                <h3>${product.title}</h3>
+                <div class="producto-price-container">
+                    <span class="producto-price">$${product.price}</span>
                     <button class="producto-add-btn">Add</button>
-                `;
-                productosContainer.appendChild(productCard);
-            });
+                </div>
+            `;
+            productosContainer.appendChild(productCard);
         });
+    });
 
     // Fetch para categorías
     fetch('https://fakestoreapi.com/products/categories')
