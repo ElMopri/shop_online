@@ -1,9 +1,12 @@
+// Ejecutar la inicialización cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', initPage);
+
 // Función para determinar la página actual y ejecutar la función correspondiente
 function initPage() {
     const path = window.location.pathname;
 
     // Inicializar según la página
-    if (path.includes('index.html') || path.includes('')) {
+    if (path.endsWith('index.html') || path === '/') {
         initLogin();
     } else if (path.includes('productos.html')) {
         initProductos();
@@ -13,9 +16,6 @@ function initPage() {
         initInformacion();
     }
 }
-
-// Ejecutar la inicialización cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', initPage);
 
 // Función para manejar el login en index.html
 function initLogin() {
