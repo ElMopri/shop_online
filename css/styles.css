@@ -1,4 +1,5 @@
-body {
+/* Estilos existentes para la página de login */
+.login-body {
     font-family: Arial, sans-serif;
     background-color: #f2f2f2;
     display: flex;
@@ -16,18 +17,18 @@ body {
     width: 300px;
 }
 
-h1 {
+.login-title {
     margin-bottom: 5px;
     font-size: 24px;
 }
 
-p {
+.login-subtitle {
     margin-bottom: 20px;
     font-size: 14px;
     color: #777;
 }
 
-input[type="text"], input[type="password"] {
+.login-input {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -36,7 +37,7 @@ input[type="text"], input[type="password"] {
     box-sizing: border-box;
 }
 
-button {
+.login-button {
     background-color: #4a56d4;
     color: white;
     padding: 10px;
@@ -47,16 +48,185 @@ button {
     font-size: 16px;
 }
 
-button:hover {
+.login-button:hover {
     background-color: #3742ac;
 }
 
-a {
+.login-register-link {
     display: block;
     margin-top: 10px;
     color: black;
 }
 
-a:hover {
+.login-register-link:hover {
     text-decoration: underline;
+}
+
+/* Estilos para productos.html */
+.productos-body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+}
+
+.productos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+}
+
+.productos-header-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.productos-title {
+    font-size: 28px;
+    margin: 0;
+}
+
+.productos-subtitle {
+    font-size: 14px;
+    color: #777;
+}
+
+.productos-header-right {
+    display: flex;
+    align-items: center;
+}
+
+.carrito-btn, .logout-btn {
+    background-color: #4a56d4;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 20px;
+}
+
+.carrito-btn:hover, .logout-btn:hover {
+    background-color: #3742ac;
+}
+
+.search-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.search-label {
+    margin-right: 10px;
+    font-size: 16px;
+    white-space: nowrap; /* Para que el texto no se corte */
+}
+
+.search-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 300px;
+}
+
+.search-btn {
+    padding: 8px 12px;
+    background-color: #4a56d4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.search-btn:hover {
+    background-color: #3742ac;
+}
+
+.productos-section-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.categorias-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.categoria-btn {
+    background-color: lightgrey;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.categoria-btn:hover {
+    background-color: #ccc;
+}
+
+.productos-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.producto-card {
+    background-color: rgb(231, 231, 231);
+    border: 0px solid #ccc;
+    padding: 15px;
+    margin: 15px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Alinear los elementos en columna */
+    max-width: 220px; /* Define un ancho máximo para evitar que se extienda demasiado */
+    height: auto; /* Permite que el alto se ajuste al contenido */
+    align-items: center; /* Centra los elementos horizontalmente */
+}
+
+.producto-card img {
+    max-width: 100%; /* Asegurarse de que la imagen no se desborde */
+    height: auto; /* Mantiene la relación de aspecto */
+    margin-bottom: 10px; /* Espacio entre la imagen y el título */
+}
+
+.producto-card h3 {
+    font-size: 18px;
+    margin: 10px 0 5px; /* Reduce el margen inferior para ajustar el espacio */
+    flex-grow: 0; /* Evita que el título ocupe más espacio del necesario */
+}
+
+.producto-price-container {
+    display: flex; /* Usamos flex para alinear el precio y el botón */
+    justify-content: space-between; /* Espacio entre el precio y el botón */
+    align-items: center; /* Centrar verticalmente */
+    width: 100%; /* Asegurar que ocupe todo el ancho */
+    margin-top: auto; /* Empuja el contenedor al final del card */
+}
+
+.producto-price {
+    font-size: 16px;
+    margin: 0; /* Elimina el margen para reducir espacio */
+    font-weight: 900;
+}
+
+.producto-add-btn {
+    padding: 8px 12px;
+    background-color: #e7a20c;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 900;
 }
