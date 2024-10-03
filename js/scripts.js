@@ -1,19 +1,40 @@
+// Función para determinar la página actual y ejecutar la función correspondiente
+function initPage() {
+    const path = window.location.pathname;
+
+    // Inicializar según el archivo de la página actual
+    if (path.includes('index.html')) {
+        initLogin();
+    } else if (path.includes('productos.html')) {
+        initProductos();
+    }
+}
+
+// Ejecutar la inicialización cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', initPage);
+
 // Función para manejar el login en index.html
 function initLogin() {
     const loginForm = document.getElementById('loginForm');
+    
+    // Verificar si el formulario existe en la página
     if (loginForm) {
         loginForm.addEventListener('submit', function(event) {
-            event.preventDefault();
+            event.preventDefault(); // Evita el comportamiento predeterminado del formulario
 
             const fixedUsername = 'mor_2314';
             const fixedPassword = '83r5^_';
 
+            // Obtener los valores ingresados por el usuario
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
+            // Verificar si coinciden con los valores fijos
             if (username === fixedUsername && password === fixedPassword) {
+                // Redirigir a productos.html si el inicio de sesión es exitoso
                 window.location.href = './productos.html';
             } else {
+                // Mostrar mensaje de error si las credenciales no son correctas
                 alert('Usuario o contraseña incorrectos');
             }
         });
@@ -24,9 +45,31 @@ function initLogin() {
 function initProductos() {
     const categoriasContainer = document.querySelector('.categorias-container');
     const productosContainer = document.querySelector('.productos-container');
+    const carritoBtn = document.querySelector('.carrito-btn');
+    const logoutBtn = document.querySelector('.logout-btn');
+    const searchInput = document.querySelector('.search-input');
+    const searchBtn = document.querySelector('.search-btn');
+    const suggestionsList = document.createElement('ul');
+    suggestionsList.classList.add('suggestions-list');
+    searchInput.parentNode.appendChild(suggestionsList); // Añadimos la lista debajo del input de búsqueda
+
+    let productos = []; // Variable para almacenar productos
+
+    // Verificar si los botones existen en la página
+    if (carritoBtn) {
+        carritoBtn.addEventListener('click', function() {
+            window.location.href = './carrito.html'; // Redirigir a carrito.html
+        });
+    }
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            window.location.href = './index.html'; // Redirigir a index.html
+        });
+    }
 
     if (categoriasContainer && productosContainer) {
-        // Obtener y mostrar las categorías
+        // Obtener y mostrar todas las categorías
         fetch('https://fakestoreapi.com/products/categories')
             .then(res => res.json())
             .then(categorias => {
@@ -35,7 +78,7 @@ function initProductos() {
                     categoriaBtn.classList.add('categoria-btn');
                     categoriaBtn.textContent = capitalizeFirstLetter(categoria);
                     categoriaBtn.addEventListener('click', () => {
-                        obtenerProductosPorCategoria(categoria);
+                        obtenerProductosPorCategoria(categoria); // Filtrar productos por categoría
                     });
                     categoriasContainer.appendChild(categoriaBtn);
                 });
@@ -45,52 +88,110 @@ function initProductos() {
         // Obtener y mostrar todos los productos
         fetch('https://fakestoreapi.com/products')
             .then(res => res.json())
-            .then(productos => {
-                mostrarProductos(productos);
+            .then(data => {
+                productos = data; // Almacenar productos
+                mostrarProductos(productos); // Mostrar todos los productos
             })
             .catch(err => console.error('Error al cargar los productos:', err));
     }
 
-    // Función para obtener productos por categoría
+    // Función para mostrar productos
+    function mostrarProductos(productos) {
+        productosContainer.innerHTML = ''; // Limpiar el contenedor de productos
+        productos.forEach(producto => {
+            const productoCard = document.createElement('div');
+            productoCard.classList.add('producto-card');
+
+            productoCard.innerHTML = `
+                <div class="producto-img-container">
+                    <img src="${producto.image}" alt="${producto.title}">
+                </div>
+                <h3>${producto.title}</h3>
+                <div class="producto-price-container">
+                    <p class="producto-price">$${producto.price.toFixed(2)}</p>
+                    <button class="producto-add-btn">Add</button>
+                </div>
+            `;
+
+            productosContainer.appendChild(productoCard);
+        });
+    }
+
+    // Función para filtrar productos por categoría
     function obtenerProductosPorCategoria(categoria) {
         fetch(`https://fakestoreapi.com/products/category/${categoria}`)
             .then(res => res.json())
-            .then(productos => {
-                productosContainer.innerHTML = ''; // Limpiar los productos actuales
-                mostrarProductos(productos);
+            .then(data => {
+                productosContainer.innerHTML = ''; // Limpiar contenedor de productos
+                mostrarProductos(data); // Mostrar productos filtrados
             })
             .catch(err => console.error('Error al cargar productos por categoría:', err));
     }
 
-// Función para mostrar productos
-function mostrarProductos(productos) {
-    productosContainer.innerHTML = ''; // Limpiar el contenedor de productos
-    productos.forEach(producto => {
-        const productoCard = document.createElement('div');
-        productoCard.classList.add('producto-card');
+    // Función para obtener sugerencias de productos por nombre
+    function obtenerSugerencias(query) {
+        if (query.length === 0) {
+            suggestionsList.innerHTML = ''; // Limpiar si no hay texto
+            return;
+        }
 
-        productoCard.innerHTML = `
-            <img src="${producto.image}" alt="${producto.title}">
-            <h3>${producto.title}</h3>
-            <div class="producto-price-container">
-                <p class="producto-price">$${producto.price.toFixed(2)}</p>
-                <button class="producto-add-btn">Add</button>
-            </div>
-        `;
+        const resultadosFiltrados = productos.filter(producto =>
+            producto.title.toLowerCase().includes(query.toLowerCase()) // Filtrar por nombre
+        );
 
-        productosContainer.appendChild(productoCard);
+        mostrarSugerencias(resultadosFiltrados);
+    }
+
+    // Función para mostrar sugerencias
+    function mostrarSugerencias(sugerencias) {
+        suggestionsList.innerHTML = ''; // Limpiar la lista de sugerencias
+        if (sugerencias.length > 0) {
+            sugerencias.forEach(sugerencia => {
+                const suggestionItem = document.createElement('li');
+                suggestionItem.classList.add('suggestion-item');
+                suggestionItem.textContent = sugerencia.title; // Mostrar solo el título
+                suggestionItem.addEventListener('click', () => {
+                    // Autocompletar el input con el nombre del producto seleccionado
+                    searchInput.value = sugerencia.title; // Autocompletar con el nombre
+                    suggestionsList.innerHTML = ''; // Limpiar las sugerencias después de seleccionar
+                });
+                suggestionsList.appendChild(suggestionItem);
+            });
+        } else {
+            suggestionsList.innerHTML = '<li>No hay sugerencias disponibles.</li>'; // Mensaje si no hay sugerencias
+        }
+    }
+
+    // Evento de entrada en la barra de búsqueda
+    searchInput.addEventListener('input', () => {
+        const query = searchInput.value.trim();
+        obtenerSugerencias(query); // Obtener sugerencias basadas en el nombre
+    });
+
+    // Evento al hacer clic en el botón de búsqueda
+    searchBtn.addEventListener('click', () => {
+        const query = searchInput.value.trim();
+        const productoBuscado = productos.find(producto => producto.title.toLowerCase() === query.toLowerCase());
+
+        if (productoBuscado) {
+            fetch(`https://fakestoreapi.com/products/${productoBuscado.id}`) // Buscar por ID
+                .then(res => {
+                    if (!res.ok) throw new Error('Producto no encontrado');
+                    return res.json();
+                })
+                .then(producto => {
+                    productosContainer.innerHTML = ''; // Limpiar productos
+                    mostrarProductos([producto]); // Mostrar el producto encontrado
+                })
+                .catch(err => alert(err.message)); // Mostrar mensaje de error
+        } else {
+            alert('Producto no encontrado'); // Mensaje si no se encuentra el producto
+        }
     });
 }
 
-    // Función para capitalizar la primera letra de una cadena
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
+// Función para capitalizar la primera letra de una cadena
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// Determinar qué inicialización ejecutar según la página
-if (window.location.pathname.includes('index.html')) {
-    initLogin();
-} else if (window.location.pathname.includes('productos.html')) {
-    initProductos();
-}

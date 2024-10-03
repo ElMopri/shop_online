@@ -118,12 +118,13 @@
     justify-content: center;
     align-items: center;
     margin: 20px 0;
+    position: relative;
 }
 
 .search-label {
     margin-right: 10px;
     font-size: 16px;
-    white-space: nowrap; /* Para que el texto no se corte */
+    white-space: nowrap;
 }
 
 .search-input {
@@ -131,6 +132,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 300px;
+    position: relative;
 }
 
 .search-btn {
@@ -147,6 +149,29 @@
     background-color: #3742ac;
 }
 
+.suggestions-list {
+    list-style-type: none; /* Sin puntos de lista */
+    padding: 0;
+    margin: 5px 0 0; /* Espacio por encima de la lista */
+    border: 1px solid #ccc; /* Borde alrededor de la lista */
+    background-color: white; /* Fondo blanco */
+    position: absolute; /* Posiciona la lista */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    max-height: 200px; /* Altura máxima de la lista */
+    overflow-y: auto; /* Scroll si hay muchas sugerencias */
+}
+
+.suggestion-item {
+    padding: 10px; /* Espaciado interno */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el elemento */
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0; /* Color de fondo al pasar el mouse */
+}
+
+
+/* Sección de productos */
 .productos-section-title {
     text-align: center;
     font-size: 24px;
@@ -188,35 +213,35 @@
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column; /* Alinear los elementos en columna */
-    max-width: 220px; /* Define un ancho máximo para evitar que se extienda demasiado */
-    height: auto; /* Permite que el alto se ajuste al contenido */
-    align-items: center; /* Centra los elementos horizontalmente */
+    flex-direction: column;
+    max-width: 220px;
+    height: auto;
+    align-items: center;
 }
 
 .producto-card img {
-    max-width: 100%; /* Asegurarse de que la imagen no se desborde */
-    height: auto; /* Mantiene la relación de aspecto */
-    margin-bottom: 10px; /* Espacio entre la imagen y el título */
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
 }
 
 .producto-card h3 {
     font-size: 18px;
-    margin: 10px 0 5px; /* Reduce el margen inferior para ajustar el espacio */
-    flex-grow: 0; /* Evita que el título ocupe más espacio del necesario */
+    margin: 10px 0 5px;
 }
 
 .producto-price-container {
-    display: flex; /* Usamos flex para alinear el precio y el botón */
-    justify-content: space-between; /* Espacio entre el precio y el botón */
-    align-items: center; /* Centrar verticalmente */
-    width: 100%; /* Asegurar que ocupe todo el ancho */
-    margin-top: auto; /* Empuja el contenedor al final del card */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: auto;
+    background-color: lightblue;
 }
 
 .producto-price {
     font-size: 16px;
-    margin: 0; /* Elimina el margen para reducir espacio */
+    margin: 0;
     font-weight: 900;
 }
 
@@ -225,8 +250,9 @@
     background-color: #e7a20c;
     color: black;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
     font-weight: 900;
+    align-items: flex-end;
 }
+

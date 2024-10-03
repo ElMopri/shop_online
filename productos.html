@@ -18,11 +18,12 @@
         </div>
     </header>
 
-    <div class="search-bar-container">
+    <div class="search-bar-container"> <!-- Contenedor con posición relativa -->
         <label for="search" class="search-label">Filtro de búsqueda:</label>
-        <input type="text" id="search" class="search-input" placeholder="Buscar producto...">
-        <button id="search-btn" class="search-btn">Buscar</button>
-    </div>
+        <input type="text" class="search-input" placeholder="Nombre del producto" id="search">
+        <button class="search-btn">Buscar</button>
+        <ul class="suggestions-list"></ul> <!-- Lista de sugerencias -->
+    </div>    
 
     <h2 class="productos-section-title">Productos</h2>
 
